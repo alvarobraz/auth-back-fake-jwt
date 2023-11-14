@@ -6,7 +6,13 @@ const app = express();
 const port = 3000;
 
 app.use(bodyParser.json());
-app.use(cors());
+
+
+const corsOptions = {
+  origin: "https://angular-auth-front-login.vercel.app/", 
+  optionsSuccessStatus: 200, 
+};
+app.use(cors(corsOptions));
 
 app.post("/sign", (req, res) => {
   const email = "alvarobraz83@gmail.com";
