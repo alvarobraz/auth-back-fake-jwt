@@ -1,31 +1,18 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
+const cors = require("cors");
 const app = express();
 const port = 3000;
 
-const allowCors = fn => async (req, res) => {
-  res.setHeader('Access-Control-Allow-Credentials', true)
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-  )
-  if (req.method === 'OPTIONS') {
-    res.status(200).end()
-    return
-  }
-  return await fn(req, res)
-}
+app.use(bodyParser.json());
+
 
 const corsOptions = {
-  origin: "https://angular-auth-front-login.vercel.app", 
+  origin: "https://angular-auth-front-login.vercel.app/", 
   optionsSuccessStatus: 200, 
 };
-
-app.use(allowCors);
-app.use(bodyParser.json());
+app.use(cors(corsOptions));
 
 app.post("/sign", (req, res) => {
   const email = "alvarobraz83@gmail.com";
