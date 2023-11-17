@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 
 
 const corsOptions = {
-  origin: "https://angular-auth-front-login.vercel.app/", 
+  origin: "https://angular-auth-front-login.vercel.app", 
   optionsSuccessStatus: 200, 
 };
 app.use(cors(corsOptions));
