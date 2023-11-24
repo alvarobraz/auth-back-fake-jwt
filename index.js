@@ -30,24 +30,29 @@ const corsOptions = {
 app.use(cors(allowCors));
 
 app.post("/sign", (req, res) => {
-  const email = "alvarobraz83@gmail.com";
-  const password = "1234567";
-
-  if (req.body.email === email && req.body.password === password) {
-    const data = {
-      nome: "Álvaro Braz",
-      email,
-      role: ["sysAdmin"],
-    };
-
-    const token = jwt.sign({ data }, "SECRET", {
-      expiresIn: 100000,
-    });
-
-    return res.json({ token: token });
+  try {
+    const email = "alvarobraz83@gmail.com";
+    const password = "1234567";
+  
+    if (req.body.email === email && req.body.password === password) {
+      const data = {
+        nome: "Álvaro Braz",
+        email,
+        role: ["sysAdmin"],
+      };
+  
+      const token = jwt.sign({ data }, "SECRET", {
+        expiresIn: 100000,
+      });
+  
+      return res.json({ token: token });
+    }
+  
+    res.status(500).json({ message: "Usuário ou senha incorreta" });
+  } catch (erro) {
+    console.error('Ocorreu um erro ao ler o arquivo:', erro.message);
   }
-
-  res.status(500).json({ message: "Usuário ou senha incorreta" });
+  
 });
 
 app.listen(port, () => {
